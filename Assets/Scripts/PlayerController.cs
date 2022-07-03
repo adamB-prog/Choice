@@ -1,5 +1,6 @@
 
 using Assets.Scripts;
+using Assets.Scripts.Interfaces;
 using Choice.Input;
 using System;
 using UnityEngine;
@@ -55,24 +56,24 @@ public class PlayerController : MonoBehaviour
         
 
         playerControls.Land.Jump.performed += Jump;
-        playerControls.Land.Jump.canceled += Jump_canceled;
+        playerControls.Land.Jump.canceled += Jump_Canceled;
         playerControls.Land.Move.performed += Move;
         playerControls.Land.Move.canceled += Move_Canceled;
     }
 
-    private void Jump_canceled(InputAction.CallbackContext obj)
+    private void Jump_Canceled(InputAction.CallbackContext context)
     {
         jumping = false;
     }
 
-    private void Move_Canceled(InputAction.CallbackContext obj)
+    private void Move_Canceled(InputAction.CallbackContext context)
     {
         moving = false;
     }
 
     private void Move(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<float>());
+        //Debug.Log(context.ReadValue<float>());
         moving = true;
         
     }
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump");
+        //Debug.Log("Jump");
         
 
         jumping = true;
