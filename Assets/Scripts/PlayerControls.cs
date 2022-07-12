@@ -55,6 +55,15 @@ namespace Choice.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""6479c0fb-593f-4034-8c83-556a9daaa3ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -145,6 +154,28 @@ namespace Choice.Input
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f738733d-f9a6-41a0-b2a6-a83c31f5fc51"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7e485a3-1e0d-4623-8c4b-2e5061c161f3"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -178,6 +209,7 @@ namespace Choice.Input
             m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
             m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
             m_Land_Shoot = m_Land.FindAction("Shoot", throwIfNotFound: true);
+            m_Land_Interact = m_Land.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -240,6 +272,7 @@ namespace Choice.Input
         private readonly InputAction m_Land_Move;
         private readonly InputAction m_Land_Jump;
         private readonly InputAction m_Land_Shoot;
+        private readonly InputAction m_Land_Interact;
         public struct LandActions
         {
             private @PlayerControls m_Wrapper;
@@ -247,6 +280,7 @@ namespace Choice.Input
             public InputAction @Move => m_Wrapper.m_Land_Move;
             public InputAction @Jump => m_Wrapper.m_Land_Jump;
             public InputAction @Shoot => m_Wrapper.m_Land_Shoot;
+            public InputAction @Interact => m_Wrapper.m_Land_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Land; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -265,6 +299,9 @@ namespace Choice.Input
                     @Shoot.started -= m_Wrapper.m_LandActionsCallbackInterface.OnShoot;
                     @Shoot.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnShoot;
                     @Shoot.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnShoot;
+                    @Interact.started -= m_Wrapper.m_LandActionsCallbackInterface.OnInteract;
+                    @Interact.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnInteract;
+                    @Interact.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnInteract;
                 }
                 m_Wrapper.m_LandActionsCallbackInterface = instance;
                 if (instance != null)
@@ -278,6 +315,9 @@ namespace Choice.Input
                     @Shoot.started += instance.OnShoot;
                     @Shoot.performed += instance.OnShoot;
                     @Shoot.canceled += instance.OnShoot;
+                    @Interact.started += instance.OnInteract;
+                    @Interact.performed += instance.OnInteract;
+                    @Interact.canceled += instance.OnInteract;
                 }
             }
         }
@@ -296,6 +336,7 @@ namespace Choice.Input
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }
