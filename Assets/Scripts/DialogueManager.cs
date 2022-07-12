@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using System;
+using UnityEngine.EventSystems;
+
 
 public class DialogueManager : MonoBehaviour
 {
@@ -49,6 +51,7 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
+        
         if (currentStory.canContinue)
         {
             //write the story
@@ -100,8 +103,22 @@ public class DialogueManager : MonoBehaviour
         }
 
 
+        StartCoroutine(SelectFirstChoice());
 
     }
+
+    private IEnumerator SelectFirstChoice()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        yield return new WaitForEndOfFrame();
+        EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+    }
+
+    public void MakeChoice(int choiceIndex)
+    {
+        currentStory.ChooseChoiceIndex(choiceIndex);
+    }
+
 
     private void Awake()
     {
@@ -114,6 +131,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        
         DialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
 
@@ -132,8 +150,9 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        if (InputManager.GetInstance().GetShootPressed())
+        if (InputManager.GetInstance().GetSubmitPressed())
         {
+           
             ContinueStory();
         }
     }
