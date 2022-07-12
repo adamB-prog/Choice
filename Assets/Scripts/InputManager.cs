@@ -8,17 +8,21 @@ public class InputManager : MonoBehaviour
 {
     private float moveDirection = 0f;
 
+    private Vector2 navigationDirection = Vector2.zero;
+
     private bool jumpPressed = false;
 
     private bool interactPressed = false;
 
     private bool shootPressed = false;
 
+    private bool submitPressed = false;
 
     private static InputManager instance;
 
     private void Awake()
     {
+        Application.targetFrameRate = -1;
         if (instance != null)
         {
             Debug.LogError("There are more InputManager in the scene.");
@@ -81,6 +85,30 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void NavigationPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            navigationDirection = ctx.ReadValue<Vector2>();
+        }
+        else if (ctx.canceled)
+        {
+            navigationDirection = ctx.ReadValue<Vector2>();
+        }
+    }
+
+    public void SubmitPressed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            submitPressed = true;
+        }
+        else if (ctx.canceled)
+        {
+            submitPressed = false;
+        }
+    }
+
     public float GetMoveDirection()
     {
         return moveDirection;
@@ -105,5 +133,16 @@ public class InputManager : MonoBehaviour
         interactPressed = false;
         return result;
     }
+    
+    public Vector2 GetNavigationPressed()
+    {
+        return navigationDirection;
+    }
 
+    public bool GetSubmitPressed()
+    {
+        bool result = submitPressed;
+        submitPressed = false;
+        return result;
+    }
 }

@@ -36,6 +36,12 @@ public class CharacterController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //No movement from the player while dialogue is active
+        if (DialogueManager.GetInstance().DialogueIsPlaying)
+        {
+            return;
+        }
+
         HandleMovement();
 
         HandleJump();
