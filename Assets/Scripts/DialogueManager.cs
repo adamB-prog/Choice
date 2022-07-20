@@ -5,7 +5,8 @@ using TMPro;
 using Ink.Runtime;
 using System;
 using UnityEngine.EventSystems;
-
+using Assets.Scripts.Interfaces;
+using System.Threading;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI[] choicesText;
 
     private Story currentStory;
+
+    
 
     public bool DialogueIsPlaying { get; private set; }
 
@@ -54,9 +57,13 @@ public class DialogueManager : MonoBehaviour
         
         if (currentStory.canContinue)
         {
-            //write the story
-            dialogueText.text = currentStory.Continue();
 
+            //write story
+            WriteDialogText(currentStory.Continue());
+            
+
+
+            
             //write choices
 
             DisplayChoices();
@@ -65,6 +72,12 @@ public class DialogueManager : MonoBehaviour
         {
             StartCoroutine(ExitDialogueMode());
         }
+    }
+
+    //Default Writer
+    private void WriteDialogText(string text)
+    {
+        dialogueText.text = text;
     }
 
     private IEnumerator ExitDialogueMode()
