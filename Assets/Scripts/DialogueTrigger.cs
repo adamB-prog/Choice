@@ -2,6 +2,7 @@ using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogueTrigger : MonoBehaviour
 {
@@ -13,7 +14,11 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField]
     private TextAsset inkJSON;
 
+    [Header("TriggerSettings")]
+    [SerializeField]
+    private bool disableAfterStart = true;
 
+    
 
 
     private IInRangeDetection inRangeDetection;
@@ -31,6 +36,11 @@ public class DialogueTrigger : MonoBehaviour
             if (InputManager.GetInstance().GetInteractPressed())
             {
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                if (disableAfterStart)
+                {
+                    this.enabled = false;
+                }
+                
             }
         }
         else
