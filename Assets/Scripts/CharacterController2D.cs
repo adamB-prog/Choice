@@ -21,6 +21,7 @@ public class CharacterController2D : MonoBehaviour
     private Rigidbody2D rb;
 
     private IGroundDetection groundDetection;
+    private IAttackMethod attackMethod;
     
 
     private void Awake()
@@ -28,6 +29,9 @@ public class CharacterController2D : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         groundDetection = GetComponentInChildren<IGroundDetection>();
+        attackMethod = GetComponent<IAttackMethod>();
+
+
 
         rb.gravityScale = gravityScale;
 
@@ -45,6 +49,18 @@ public class CharacterController2D : MonoBehaviour
         HandleMovement();
 
         HandleJump();
+
+        HandleAttack();
+;    }
+
+    private void HandleAttack()
+    {
+        bool isAttacking = InputManager.GetInstance().GetShootPressed();
+
+        if (isAttacking)
+        {
+            attackMethod.Attack();
+        }
     }
 
     private void HandleMovement()
