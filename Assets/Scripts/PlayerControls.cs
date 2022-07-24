@@ -64,6 +64,15 @@ namespace Choice.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootDirection"",
+                    ""type"": ""Value"",
+                    ""id"": ""f15d6142-7016-4865-8d8a-56136a8b810f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -103,7 +112,7 @@ namespace Choice.Input
                 {
                     ""name"": """",
                     ""id"": ""9f026e68-2c90-4029-b33d-e2fb6840f196"",
-                    ""path"": ""<Joystick>/stick/x"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Desktop"",
@@ -147,7 +156,7 @@ namespace Choice.Input
                 {
                     ""name"": """",
                     ""id"": ""9c04d421-9a3f-47bb-9988-37f09fdfa4e5"",
-                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""path"": ""<XInputController>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Desktop"",
@@ -161,7 +170,7 @@ namespace Choice.Input
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Desktop"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -169,11 +178,22 @@ namespace Choice.Input
                 {
                     ""name"": """",
                     ""id"": ""d7e485a3-1e0d-4623-8c4b-2e5061c161f3"",
-                    ""path"": ""<XInputController>/buttonWest"",
+                    ""path"": ""<XInputController>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Desktop"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6db34103-b279-44b8-b63e-0785edc824bf"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""ShootDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -323,6 +343,17 @@ namespace Choice.Input
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36592c46-1621-4c84-81b5-45877a25c705"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -357,6 +388,7 @@ namespace Choice.Input
             m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
             m_Land_Shoot = m_Land.FindAction("Shoot", throwIfNotFound: true);
             m_Land_Interact = m_Land.FindAction("Interact", throwIfNotFound: true);
+            m_Land_ShootDirection = m_Land.FindAction("ShootDirection", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigation = m_UI.FindAction("Navigation", throwIfNotFound: true);
@@ -424,6 +456,7 @@ namespace Choice.Input
         private readonly InputAction m_Land_Jump;
         private readonly InputAction m_Land_Shoot;
         private readonly InputAction m_Land_Interact;
+        private readonly InputAction m_Land_ShootDirection;
         public struct LandActions
         {
             private @PlayerControls m_Wrapper;
@@ -432,6 +465,7 @@ namespace Choice.Input
             public InputAction @Jump => m_Wrapper.m_Land_Jump;
             public InputAction @Shoot => m_Wrapper.m_Land_Shoot;
             public InputAction @Interact => m_Wrapper.m_Land_Interact;
+            public InputAction @ShootDirection => m_Wrapper.m_Land_ShootDirection;
             public InputActionMap Get() { return m_Wrapper.m_Land; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -453,6 +487,9 @@ namespace Choice.Input
                     @Interact.started -= m_Wrapper.m_LandActionsCallbackInterface.OnInteract;
                     @Interact.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnInteract;
                     @Interact.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnInteract;
+                    @ShootDirection.started -= m_Wrapper.m_LandActionsCallbackInterface.OnShootDirection;
+                    @ShootDirection.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnShootDirection;
+                    @ShootDirection.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnShootDirection;
                 }
                 m_Wrapper.m_LandActionsCallbackInterface = instance;
                 if (instance != null)
@@ -469,6 +506,9 @@ namespace Choice.Input
                     @Interact.started += instance.OnInteract;
                     @Interact.performed += instance.OnInteract;
                     @Interact.canceled += instance.OnInteract;
+                    @ShootDirection.started += instance.OnShootDirection;
+                    @ShootDirection.performed += instance.OnShootDirection;
+                    @ShootDirection.canceled += instance.OnShootDirection;
                 }
             }
         }
@@ -529,6 +569,7 @@ namespace Choice.Input
             void OnJump(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnShootDirection(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
