@@ -59,6 +59,9 @@ public class DialogueManager : MonoBehaviour
         
         if (currentStory.canContinue)
         {
+
+            HideChoiceUI();
+
             //if there is a custom writer then...
             if (dialogueWriter is not null)
             {
@@ -104,7 +107,7 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    private void DisplayChoices()
+    public void DisplayChoices()
     {
         List<Ink.Runtime.Choice> currentChoices = currentStory.currentChoices;
 
@@ -140,6 +143,23 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
     }
+    public void SelectNoneChoice()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void HideChoiceUI()
+    {
+        foreach (var choiceUI in choices)
+        {
+            choiceUI.SetActive(false);
+        }
+    }
+
+    public void ClearDialogueText()
+    {
+        dialogueText.text = String.Empty;
+    }
 
     public void MakeChoice(int choiceIndex)
     {
@@ -151,7 +171,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.Log("There are more DialogManager in the scene");
+            Debug.Log("There are more DialogueManager in the scene");
         }
         instance = this;
 
@@ -177,6 +197,10 @@ public class DialogueManager : MonoBehaviour
     private void FixedUpdate()
     {
         if (!DialogueIsPlaying)
+        {
+            return;
+        }
+        if (!dialogueWriter.IsFinished)
         {
             return;
         }
