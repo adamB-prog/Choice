@@ -51,7 +51,7 @@ public class CharacterController2D : MonoBehaviour
         HandleJump();
 
         HandleAttack();
-;    }
+    }
 
     private void HandleAttack()
     {

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Interfaces;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets.Scripts
 {
@@ -11,7 +12,10 @@ namespace Assets.Scripts
         private bool canAttack = true;
 
         [SerializeField]
-        private float attackTimer = 1f;
+        private Transform shootingPoint;
+
+        [SerializeField]
+        private float attackTimer = 10f;
 
         [SerializeField]
         private GameObject bullet;
@@ -23,14 +27,14 @@ namespace Assets.Scripts
             {
                 PlaceProjectile();
 
-                ReloadTime();
+                StartCoroutine(ReloadTime());
             }
         }
 
 
         private IEnumerator ReloadTime()
         {
-            canAttack = false;
+            
             yield return new WaitForSeconds(attackTimer);
             canAttack = true;
 
@@ -38,7 +42,14 @@ namespace Assets.Scripts
 
         private void PlaceProjectile()
         {
-            Instantiate(bullet);
+            GameObject go = Instantiate(bullet,shootingPoint.position, new Quaternion());
+
+            
+            
+
+            go.GetComponent<Rigidbody2D>().AddForce(new Vector2(1f,0.5f) * 100);
+
+            canAttack = false;
         }
     }
 }
