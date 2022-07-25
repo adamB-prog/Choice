@@ -26,6 +26,8 @@ public class DialogueManager : MonoBehaviour
 
     private Story currentStory;
 
+
+    private IDialogueWriter dialogueWriter;
     
 
     public bool DialogueIsPlaying { get; private set; }
@@ -57,9 +59,16 @@ public class DialogueManager : MonoBehaviour
         
         if (currentStory.canContinue)
         {
-
             //write story
-            WriteDialogText(currentStory.Continue());
+            if (dialogueWriter is not null)
+            {
+                dialogueWriter.WriteDialogueText(dialogueText, currentStory.Continue());
+            }
+            else
+            {
+                WriteDialogText(currentStory.Continue());
+            }
+            
             
 
 
@@ -140,6 +149,9 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("There are more DialogManager in the scene");
         }
         instance = this;
+
+
+        dialogueWriter = GetComponent<IDialogueWriter>();
     }
 
     private void Start()
