@@ -39,9 +39,12 @@ public class DialogueTrigger : MonoBehaviour
                 if (disableAfterStart)
                 {
                     this.enabled = false;
+                    visualCue.SetActive(false);
                 }
+
                 
             }
+            
         }
         else
         {
