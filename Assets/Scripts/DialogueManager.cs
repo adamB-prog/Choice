@@ -59,23 +59,28 @@ public class DialogueManager : MonoBehaviour
         
         if (currentStory.canContinue)
         {
-            //write story
+            //if there is a custom writer then...
             if (dialogueWriter is not null)
             {
                 dialogueWriter.WriteDialogueText(dialogueText, currentStory.Continue());
             }
             else
-            {
-                WriteDialogText(currentStory.Continue());
+            {   
+                //else use the default
+                //write story
+                WriteDialogueText(currentStory.Continue());
+
+                //write choices
+                DisplayChoices();
             }
             
             
 
 
             
-            //write choices
+            
 
-            DisplayChoices();
+            
         }
         else
         {
@@ -84,7 +89,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     //Default Writer
-    private void WriteDialogText(string text)
+    private void WriteDialogueText(string text)
     {
         dialogueText.text = text;
     }
