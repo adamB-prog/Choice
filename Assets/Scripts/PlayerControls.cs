@@ -196,6 +196,17 @@ namespace Choice.Input
                     ""action"": ""ShootDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46958c10-b474-4226-95c7-4fc5769f0a8e"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""ShootDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },

@@ -137,6 +137,10 @@ public class InputManager : MonoBehaviour
         return moveDirection;
     }
 
+    public string GetActiveDeviceName()
+    {
+        return device;
+    }
     public bool GetJumpPressed()
     {
         bool result = jumpPressed;
