@@ -7,25 +7,30 @@ namespace Assets.Scripts
 {
     internal class ShootAttackMethod : MonoBehaviour, IAttackMethod
     {
-        //private float timer;
+        
 
         private bool canAttack = true;
 
         [SerializeField]
         private Transform shootingPoint;
 
+
+        [Header("Weapon params")]
         [SerializeField]
-        private float attackTimer = 10f;
+        private float reloadTime = 10f;
+
+        [SerializeField]
+        private float shootForce;
 
         [SerializeField]
         private GameObject bullet;
 
 
-        public void Attack()
+        public void Attack(Vector2 rotation)
         {
             if (canAttack)
             {
-                PlaceProjectile();
+                PlaceProjectile(rotation);
 
                 StartCoroutine(ReloadTime());
             }
@@ -35,19 +40,22 @@ namespace Assets.Scripts
         private IEnumerator ReloadTime()
         {
             
-            yield return new WaitForSeconds(attackTimer);
+            yield return new WaitForSeconds(reloadTime);
             canAttack = true;
 
         }
 
-        private void PlaceProjectile()
+        private void PlaceProjectile(Vector2 rotation)
         {
-            GameObject go = Instantiate(bullet,shootingPoint.position, new Quaternion());
+
+            Vector2 vec = rotation - new Vector2(shootingPoint.position.x, shootingPoint.position.y);
+            
+            GameObject go = Instantiate(bullet,shootingPoint.position, new Quaternion(vec.x,vec.y, 0, 0));
+
 
             
-            
 
-            go.GetComponent<Rigidbody2D>().AddForce(new Vector2(1f,0.5f) * 100);
+            go.GetComponent<Rigidbody2D>().AddForce(vec * shootForce);
 
             canAttack = false;
         }
