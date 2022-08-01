@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8255712453555823392}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -72,6 +72,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8255712453555823455}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DeviceCheck
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ca0704b7-12d5-4ccd-9450-004d3433744d
     m_ActionName: Land/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -79,6 +91,18 @@ MonoBehaviour:
       - m_Target: {fileID: 8255712453555823455}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: JumpPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8255712453555823455}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DeviceCheck
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -104,6 +128,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8255712453555823455}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DeviceCheck
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b1a2126c-8729-4ee6-8b5e-8df2bd291e0d
     m_ActionName: Land/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -111,6 +147,18 @@ MonoBehaviour:
       - m_Target: {fileID: 8255712453555823455}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: InteractButtonPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8255712453555823455}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DeviceCheck
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -154,6 +202,34 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6062b946-33a7-4c10-9e96-ee92f4073d51
     m_ActionName: UI/Submit[/Keyboard/enter,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8255712453555823455}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ShootingDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8255712453555823455}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DeviceCheck
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f15d6142-7016-4865-8d8a-56136a8b810f
+    m_ActionName: Land/ShootDirection[/Mouse/position,/XInputControllerWindows/leftStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Desktop
   m_DefaultActionMap: Land
@@ -171,3 +247,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a1ff9e367f5e143a3240cef957e81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  device: 

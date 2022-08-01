@@ -16,11 +16,14 @@ public class CharacterController2D : MonoBehaviour
     public float jumpForce = 8.0f;
     public float gravityScale = 20.0f;
 
+    public bool mirrorTurn = false;
+
 
     private BoxCollider2D coll;
     private Rigidbody2D rb;
 
     private IGroundDetection groundDetection;
+    private IAttackMethod attackMethod;
     
 
     private void Awake()
@@ -28,7 +31,10 @@ public class CharacterController2D : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         groundDetection = GetComponentInChildren<IGroundDetection>();
+        attackMethod = GetComponent<IAttackMethod>();
 
+
+       
         rb.gravityScale = gravityScale;
 
         
@@ -42,9 +48,60 @@ public class CharacterController2D : MonoBehaviour
             return;
         }
 
+        HandleMirrorTurn();     
+
         HandleMovement();
 
         HandleJump();
+
+        HandleAttack();
+
+        
+    }
+
+    private void HandleMirrorTurn()
+    {
+        if (!mirrorTurn)
+        {
+            return;
+        }
+        
+        Vector2 aimVector = InputManager.GetInstance().GetShootingDirection();
+
+        Vector2 pointInSpace = Camera.main.ScreenToWorldPoint(aimVector);
+
+       
+
+        
+
+        if (pointInSpace.x > this.gameObject.transform.position.x && this.gameObject.transform.localScale.x < 0)
+        {
+            TurnAround();
+        }
+        else if (pointInSpace.x < this.gameObject.transform.position.x && this.gameObject.transform.localScale.x > 0)
+        {
+            TurnAround();
+        }
+    }
+
+    private void TurnAround()
+    {
+        this.gameObject.transform.localScale = new Vector3(-this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+    }
+
+    private void HandleAttack()
+    {
+        bool isAttacking = InputManager.GetInstance().GetShootPressed();
+
+        if (isAttacking)
+        {
+            Vector2 aimVector = InputManager.GetInstance().GetShootingDirection();
+
+            Vector2 pointInSpace = Camera.main.ScreenToWorldPoint(aimVector);
+
+            
+            attackMethod.Attack(pointInSpace);
+        }
     }
 
     private void HandleMovement()

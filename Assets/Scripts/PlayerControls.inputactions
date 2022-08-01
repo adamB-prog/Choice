@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ShootDirection",
+                    "type": "Value",
+                    "id": "f15d6142-7016-4865-8d8a-56136a8b810f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -79,7 +88,7 @@
                 {
                     "name": "",
                     "id": "9f026e68-2c90-4029-b33d-e2fb6840f196",
-                    "path": "<Joystick>/stick/x",
+                    "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
@@ -123,7 +132,7 @@
                 {
                     "name": "",
                     "id": "9c04d421-9a3f-47bb-9988-37f09fdfa4e5",
-                    "path": "<XInputController>/buttonSouth",
+                    "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
@@ -137,7 +146,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Desktop",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -145,11 +154,33 @@
                 {
                     "name": "",
                     "id": "d7e485a3-1e0d-4623-8c4b-2e5061c161f3",
-                    "path": "<XInputController>/buttonWest",
+                    "path": "<XInputController>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Desktop",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6db34103-b279-44b8-b63e-0785edc824bf",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "ShootDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46958c10-b474-4226-95c7-4fc5769f0a8e",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "ShootDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -296,6 +327,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36592c46-1621-4c84-81b5-45877a25c705",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -8,7 +8,12 @@ public class InputManager : MonoBehaviour
 {
     private float moveDirection = 0f;
 
+    [SerializeField]
+    private string device;
+
     private Vector2 navigationDirection = Vector2.zero;
+
+    private Vector2 shootingDirection = Vector2.zero;
 
     private bool jumpPressed = false;
 
@@ -22,7 +27,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        Application.targetFrameRate = -1;
+        
         if (instance != null)
         {
             Debug.LogError("There are more InputManager in the scene.");
@@ -35,6 +40,7 @@ public class InputManager : MonoBehaviour
         return instance;
     }
 
+    
     public void MovePressed(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -58,6 +64,11 @@ public class InputManager : MonoBehaviour
             jumpPressed = false;
         }
         
+    }
+
+    public void DeviceCheck(InputAction.CallbackContext ctx)
+    {
+        device = ctx.control.device.displayName;
     }
 
     public void InteractButtonPressed(InputAction.CallbackContext ctx)
@@ -97,6 +108,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void ShootingDirection(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            shootingDirection = ctx.ReadValue<Vector2>();
+        }
+        else if (ctx.canceled)
+        {
+            shootingDirection = ctx.ReadValue<Vector2>();
+        }
+    }
+
     public void SubmitPressed(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
@@ -114,6 +137,10 @@ public class InputManager : MonoBehaviour
         return moveDirection;
     }
 
+    public string GetActiveDeviceName()
+    {
+        return device;
+    }
     public bool GetJumpPressed()
     {
         bool result = jumpPressed;
@@ -138,6 +165,11 @@ public class InputManager : MonoBehaviour
     {
         return navigationDirection;
     }
+
+    public Vector2 GetShootingDirection()
+    {
+        return shootingDirection;
+    }    
 
     public bool GetSubmitPressed()
     {
