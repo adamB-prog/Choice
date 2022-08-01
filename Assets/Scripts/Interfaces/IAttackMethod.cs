@@ -1,7 +1,9 @@
-﻿namespace Assets.Scripts.Interfaces
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Interfaces
 {
     internal interface IAttackMethod
     {
-        void Attack();
+        void Attack(Vector2 vec);
     }
 }
